@@ -1,0 +1,89 @@
+{% extends 'myaccount/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container">
+        <h3 class="font-normal mt-4 text-center">Hi, {{ user.first_name }}! You are welcome</h3>
+    </div>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                Account Progress
+            </div>
+        </div>
+    </div>
+    </div>
+    <br>
+    <div class="container-fluid pl-0 pr-0 bg-light">
+        <br>
+        <div class="container p-4">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 font-normal">
+                <div class="card">
+                    <div class="card-body">
+                        <p>Recent Transactions <small class="float-right"><a href="">See all</a></small></p>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <table class="table table-striped table-sm" style="width: 100%; table-layout: fixed;">
+                            <tbody>
+                            {% if sent %}
+                            {% for transaction in transactions %}
+                                <tr>
+                                    <td scope="col" class="small" style="width: 30%">{{ transaction.date|date:"d-m-Y" }}</td>
+                                    <td scope="col" style="width: 50%">{{ transaction.type }} {{ transaction.receiver.get_full_name }}<br> <span class="text-center small">{{ transaction.status}}</span></td>
+                                    <td scope="col" class="text-right">
+                                        {% if transaction.type == 'Payment To' or transaction.type == 'Refunded To'%}
+                                        -
+                                        {% endif %}
+                                        {{transaction.amount}} USD
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            {% else %}
+                            <h5 class="text-center">No Transactions</h5>
+                            {% endif %}
+                            <!--{% if received %}-->
+                            <!--{% for transaction in received %}-->
+                                <!--<tr>-->
+                                    <!--<td scope="col" class="small" style="width: 30%">{{ transaction.date|date:"d-m-Y" }}</td>-->
+                                    <!--<td scope="col" style="width: 50%">{{ transaction.type }} {{ transaction.sender.get_full_name }}<br> <span class="text-center small">{{ transaction.status}}</span></td>-->
+                                    <!--<td scope="col" class="text-right">-->
+                                        <!--{% if transaction.type == 'Payment To' or transaction.type == 'Refunded To'%}-->
+                                        <!-- - -->
+                                        <!--{% endif %}-->
+                                        <!--{{transaction.amount}} USD-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--{% endfor %}-->
+                            <!--{% else %}-->
+                            <!--<h5 class="text-center">No Received Transactions</h5>-->
+                            <!--{% endif %}-->
+                            </tbody>
+                        </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 font-normal">
+               <div class="card mb-1">
+                   <div class="card-body">
+                           <p class="font-weight-bold">Balance <small class="float-right"><a href="#">View</a></small></p>
+                           <small class="font-weight-light">Available</small>
+                           <h1 class="font-normal font-weight-bold">{{user.balance.get_balance }} USD</h1>
+                           <small><a href="#">Withdraw</a></small>
+                   </div>
+               </div>
+                <div class="card">
+                   <div class="card-body">
+                       <p>Receive Payment Instantly</p>
+                       <a class="btn btn-outline-info" href="{% url 'myaccount-receive' %}">Receive Payment</a>
+                   </div>
+               </div>
+            </div>
+        </div>
+    </div>
+        <br>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'myaccount/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid font-normal bg-light">
+    <div class="container mt-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="text-center">Manage Account and Settings</h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                        {% include 'myaccount/includes/profilenav.html' %}
+                    </div>
+                    <div class="col-md-9 col-sm-12 border-bottom border-top" id="profilepage">
+                        <table class="table table-striped mt-3 table-responsive" id="profiledata">
+                            <thead>
+                            <tr>
+                                <td class=""></td>
+                                <td class="col"></td>
+                                <td class=""></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td>{{ user.first_name}} {{user.last_name}}</td>
+                                <td class="text-right small text-monospace">Edit</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{ user.email }}</td>
+                                <td class="text-right small">Edit</td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td>{{user.profile.address}} </td>
+                                <td class="text-right small">Edit</td>
+                            </tr>
+                            <tr>
+                                <td>Country</td>
+                                <td>{{user.profile.country}}</td>
+                                <td class="text-right small">Edit</td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td>{{user.profile.phone}}</td>
+                                <td class="text-right small">Edit</td>
+                            </tr>
+                            <tr>
+                                <td>Password</td>
+                                <td>*********</td>
+                                <td class="text-right small">Edit</td>
+                            </tr>
+                            <tr>
+                                <td>User ID</td>
+                                <td>{{ user.profile.user_no }}</td>
+                                <td class="text-right small"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br>
+</div>
+<script src="{% static 'myaccount/js/profile.js' %}"></script>
+{% endblock %}

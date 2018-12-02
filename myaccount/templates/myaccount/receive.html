@@ -1,0 +1,23 @@
+{% extends 'myaccount/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid font-normal">
+    <br>
+    <div class="container">
+        <h2 class="border-bottom text-center">Receive Payments Instantly</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-sm-12">
+                <div class="text-center mt-4">
+                    <img src="{% url 'myaccount-qr-image' %}" class="img-responsive img-thumbnail col-md-11" alt="Quote barcode" id="qr-code">
+                </div>
+                <br>
+                <input type="text" name="amount" value="" class="form-control" id="amount" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+<script src="{% static 'myaccount/js/qr.js' %}"></script>
+{% endblock %}

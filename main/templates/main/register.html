@@ -1,0 +1,30 @@
+{% extends 'main/base2.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid font-normal bg-light">
+    <div class="container">
+        <div class="col-md-6 offset-md-3">
+            <div class="card mt-4 mb-4 p-4">
+                    <div class="card-body">
+                        <div class="col-md-4 offset-md-4">
+                            <img class="img-fluid" src="{% static 'main/img/logo_color.svg' %}" alt="">
+                        </div>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <fieldset>
+                                {{ form|crispy }}
+                                <div class="form-group">
+                                    <button class="btn btn-primary form-control" type="submit">Sign Up</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <div>
+                            <a class="btn btn-info col-md-12" href="{% url 'main-login' %}">Have Account? Log In!</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-purple">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'myaccount-index' %}">
+        <img src="{% static 'main/img/logo_color.svg' %}" alt="" width="50">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link nav-link-gold" href="{% url 'myaccount-index' %}">Dashboard</a>
+            <a class="nav-item nav-link nav-link-gold" href="{% url 'myaccount-send' %}">Send</a>
+            <a class="nav-item nav-link nav-link-gold active" href="{% url 'myaccount-receive' %}">Receive</a>
+            <a class="nav-item nav-link nav-link-gold" href="#">Transactions</a>
+            <a class="nav-item nav-link nav-link-gold" href="#">Wallet</a>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link nav-link-gold mr-2 mb-sm-1" href="{% url 'main-login' %}"><i class="fas fa-bell"></i></a>
+            <a class="nav-item nav-link nav-link-gold mr-2 mb-sm-1" href="{% url 'myaccount-profile' %}"><i class="fas fa-sliders-h"></i></a>
+            <a class="nav-item nav-link nav-link-gold border border-warning mr-2 mb-sm-1" href="{% url 'main-logout' %}">Log Out</a>
+        </div>
+    </div>
+    </div>
+</nav>

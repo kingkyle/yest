@@ -1,0 +1,71 @@
+{% extends 'myaccount/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container-fluid font-normal">
+        <div class="container mt-3">
+            <h3 class="border-bottom text-center">Send Money and Make Payments</h3>
+        </div>
+        <div class="container mt-4">
+            <div class="col-md-6 offset-md-3 col-sm-12 text-center">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if check_user %}
+                <h3>Payment To {{ check_user }}</h3>
+                {% endif %}
+                <form action="" method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="card bg-light small mb-2" id="amountValidate" style="display: none">
+                    <div class="card-body">
+                        <span class="text-danger">Please Enter Amount Valid Amount</span>
+                    </div>
+                </div>
+                {{ form2|crispy }}
+                <div class="form-group">
+                    <button class="btn btn-primary btn-lg" id="sendButton" type="submit">Send</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        let amount = document.querySelector('#id_amount');
+        let sendButton = document.querySelector('#sendButton');
+        let amountValidate = document.querySelector('#amountValidate');
+        amountValidate.style.display = 'none';
+
+        sendButton.disabled = true;
+
+        amount.onchange = () => {
+            let regEx = /^\d{0,9}(\.\d{1,5})?$/;
+            if(regEx.test(String(amount.value))){
+                sendButton.disabled = false;
+                amountValidate.style.display = 'none';
+            }else{
+                sendButton.disabled = true;
+                amountValidate.style.display = 'block';
+            }
+        };
+
+        let host = window.location.hostname;
+        let port = window.location.port;
+        let url = document.referrer;
+          if (url.split('/send/').length > 1){
+
+          }else{
+              document.location.replace(host + ':' + port + '/myaccount/send/')
+          }
+    })
+
+</script>
+{% endblock %}

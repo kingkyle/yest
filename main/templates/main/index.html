@@ -1,0 +1,123 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid  pl-0 pr-0">
+    <div class="row no-gutters">
+        <div class="col-md-12 col-sm-12 home-lg parallax">
+            <!--<img src="{% static 'main/img/home-lg1.jpg' %}" class="img-fluid image-home-lg" alt="">-->
+            <div class="text-home-lg">
+                <h1 class="lead-home-lg display-3">SMART PAYMENTS</h1>
+                <p class="small-home-lg">Smart and Faster Payments on the Go with Quote</p>
+                <a href="" class="btn btn-lg btn-outline-info text-white mt-4 col-md-8">Open A Free Account <i class="fas fa-caret-right ml-4"></i></a>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 mt-4 mb-4">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col-md-3 col-sm-12 text-center">
+                    <span style="font-size: 10vw">
+                        <span style="color: mediumorchid;">
+                            <i class="fas fa-shield-alt"></i>
+                        </span>
+                    </span>
+                        <h3 class="mt-3">Secure & Safe</h3>
+                        <p class="font-normal">Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. </p>
+                    </div>
+                    <div class="col-md-3 col-sm-12 text-center">
+                    <span style="font-size: 10vw">
+                        <span style="color: mediumorchid;">
+                            <i class="fas fa-headset"></i>
+                        </span>
+                    </span>
+                        <h3 class="mt-3">Support</h3>
+                        <p class="font-normal">Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. </p>
+                    </div>
+                    <div class="col-md-3 col-sm-12 text-center">
+                    <span style="font-size: 10vw">
+                        <span style="color: mediumorchid;">
+                            <i class="fas fa-mobile-alt"></i>
+                        </span>
+                    </span>
+                        <h3 class="mt-3">Convenient</h3>
+                        <p class="font-normal">Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. </p>
+                    </div>
+                    <div class="col-md-3 col-sm-12 text-center">
+                    <span style="font-size: 10vw">
+                        <span style="color: mediumorchid;">
+                            <i class="fas fa-wallet"></i>
+                        </span>
+                    </span>
+                        <h3 class="mt-3">Fast Payments</h3>
+                        <p class="font-normal">Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 bg-purple text-white">
+            <h2 class="text-center mb-3 mt-4">How Quote Works</h2>
+            <div class="row no-gutters">
+                <div class="col-md-2"></div>
+                <div class="col-md-4 col-sm-12 p-1 pl-3">
+                    <h3>Step 1:</h3>
+                    <h4>Create An Account</h4>
+                    <p class="font-normal">Sign Up in less than One Minute!</p>
+                </div>
+                <div class="col-md-6 col-sm-12 parallax2 d-sm-none d-sm-block d-md-block"></div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-md-6 col-sm-12 parallax2 d-sm-none d-sm-block d-md-block"></div>
+                <div class="col-md-2 d-sm-none d-sm-block d-md-block"></div>
+                <div class="col-md-4 col-sm-12 p-1 pt-2 pl-3">
+                    <h3>Step 2:</h3>
+                    <h4>Make Payments</h4>
+                    <p class="font-normal">Send and receive Payments globally.</p>
+                </div>
+            </div>
+            <div class="row no-gutters mb-4">
+                <div class="col-md-2 mb-4"></div>
+                <div class="col-md-4 col-sm-12 mb-4 p-1 pt-3 pl-3">
+                    <h3>Step 3:</h3>
+                    <h4>Withdraw Funds</h4>
+                    <p class="font-normal">Withdraw money instantly!</p>
+                </div>
+                <div class="col-md-6 col-sm-12 parallax2 d-sm-none d-sm-block d-md-block"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4 mb-4">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <img src="{% static 'main/img/phones.png' %}" class="img-fluid" alt="">
+            </div>
+            <div class="col-md-6">
+                <div class="font-normal mt-4">
+                    <br>
+                    <br>
+                    <br>
+                    <p>Get Access to Quotes with our mobile Apps.</p>
+                    <p>Quote In Your Pocket!</p>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <img src="{% static 'main/img/appstore.png' %}" class="img-fluid p-2" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <img src="{% static 'main/img/googleplay.png' %}" class="img-fluid p-2" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="container">-->
+    <!--<h2>Quote Website is Functional. BackGround Work in Progress...</h2>-->
+    <!--<p>Please Check Back Later.</p>-->
+    <!--<br>-->
+    <!--{% if user.is_authenticated %}-->
+    <!--<h4>Welcome to Quote, {{ user.get_full_name }}</h4>-->
+    <!--{% else %}-->
+    <!--<p>We have some registered User. Please Join Today!</p>-->
+    <!--{% endif %}-->
+    <!--<h1>Total Registered Users: <strong>{{ count }}</strong></h1>-->
+<!--</div>-->
+{% endblock %}

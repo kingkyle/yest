@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=Concert+One|Titillium+Web|Raleway');
+
+body {
+    font-family: 'Concert One', 'cursive';
+    height: 100%;
+}
+
+footer {
+
+}
+
+.nav-link-gold {
+    color: white!important;
+    font-size: 17px;
+}
+
+.nav-link-gold:hover {
+    color: gold!important;
+}
+
+.bg-purple {
+    background-color: purple;
+}
+
+.home-lg {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.text-home-lg {
+    color: white;
+    font-family: 'Titillium Web', 'sans-serif';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    font-weight: bold;
+    transform: translate(-50%, -40%);
+}
+
+.text-home-lg h1 {
+    text-align: center;
+}
+
+.text-home-lg p {
+    text-align: center;
+}
+
+.small-home-lg {
+    letter-spacing: 1px;
+    font-size: 2vw;
+}
+
+.parallax {
+    height: 500px;
+    background: url("../img/home-lg1.jpg") no-repeat fixed center;
+    background-size: cover;
+}
+
+.parallax2 {
+    height: 150px;
+    background: url("../img/step1-home.jpg") no-repeat fixed center;
+    background-size: cover;
+}
+
+@media only screen and (max-device-width: 1366px) {
+    .parallax {
+        background-attachment: scroll;
+    }
+    .parallax2 {
+        background-attachment: scroll;
+    }
+}
+
+@media only screen and (max-device-width: 1366px) {
+    .parallax2 {
+        display: none;
+    }
+}
+
+.font-normal {
+    font-family: 'Raleway','sans-serif';
+    padding: 2px;
+}
+
+.font-normal-2 {
+    font-family: 'Raleway','sans-serif';
+    font-size: 10px;
+}

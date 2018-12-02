@@ -1,0 +1,25 @@
+{% extends 'myaccount/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid font-normal bg-light">
+    <div class="container mt-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="text-center">Manage Account and Settings</h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                        {% include 'myaccount/includes/profilenav.html' %}
+                    </div>
+                    <div class="col-md-9 col-sm-12 border-bottom border-top" id="profilepage">
+                        <iframe src="{% url 'myaccount-payment-info' %}" frameborder="0" width="100%" height="700px" id="profiledata">
+
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br>
+</div>
+<script src="{% static 'myaccount/js/profile.js' %}"></script>
+{% endblock %}

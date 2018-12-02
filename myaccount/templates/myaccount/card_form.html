@@ -1,0 +1,27 @@
+{% extends 'myaccount/base2.html' %}
+{% load crispy_forms_tags %}
+{% block info %}
+<div class="container-fluid font-normal bg-light d-sm-none d-md-block">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-12 mt-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <fieldset>
+                                <legend>Add New Card</legend>
+                                <div class="form-group">
+                                {{ form|crispy }}
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-info" type="submit">Add Card</button>
+                            </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+{% endblock info %}

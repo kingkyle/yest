@@ -1,0 +1,36 @@
+{% extends 'myaccount/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid font-normal bg-light">
+    <div class="container mt-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="text-center">Manage Email Notifications</h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                        {% include 'myaccount/includes/profilenav.html' %}
+                    </div>
+                    <div class="col-md-9 col-sm-12 border-bottom border-top mt-2" id="profilepage">
+                        <div id="profiledata">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <p>Notify Me:</p>
+                                </div>
+                                <div class="col-md-9">
+                                    <form action="">
+                                        {% csrf_token %}
+                                        {{ form|crispy }}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br>
+</div>
+<script src="{% static 'myaccount/js/profile.js' %}"></script>
+{% endblock %}
