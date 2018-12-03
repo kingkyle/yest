@@ -22,6 +22,7 @@
             console.log(details);
             detail.value = details;
         };
+        
 
         generate.onclick = () => {
             let regEx = /^\d{0,9}(\.\d{1,5})?$/;
