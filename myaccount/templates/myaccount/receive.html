@@ -1,6 +1,7 @@
 {% extends 'myaccount/base.html' %}
 {% load static %}
 {% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.8/purify.min.js"></script>
 <div class="container-fluid font-normal">
     <br>
     <div class="container">
@@ -13,7 +14,15 @@
                     <img src="{% url 'myaccount-qr-image' %}" class="img-responsive img-thumbnail col-md-11" alt="Quote barcode" id="qr-code">
                 </div>
                 <br>
-                <input type="text" name="amount" value="" class="form-control" id="amount" autocomplete="off">
+                <div class="form-group">
+                    <input type="text" name="amount" value="" class="form-control" id="amount" autocomplete="off" placeholder="Enter Amount">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="Enter Details About Payment (Optional)" id="detail"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-info form-control" id="generate">Generate Quote</button>
+                </div>
             </div>
         </div>
     </div>

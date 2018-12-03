@@ -165,9 +165,9 @@ def qr_image(request):
     return response
 
 @login_required
-def qr_amount(request, amount):
+def qr_amount(request, amount, detail):
     email = request.user.email
-    data = f'email:{email}?amount={amount}'
+    data = f'email:{email}?amount={amount}?detail={detail}'
     img = qrcode.make(data, image_factory=PymagingImage)
     Buf = BytesIO()
     img.save(Buf)

@@ -44,15 +44,17 @@
             </div>
         </div>
   <script>
-      document.addEventListener('DOMContentLoaded', function () {
-          let url = document.referrer;
-          let url2 = window.location.href
-          if (url.split('/payment/').length > 1 || url2.split('/payment/').length > 1){
+      let url = document.referrer;
+          let url2 = document.location.href;
+          if (url.split('/payment/').length > 1 && url2.split('/payment-info/').length > 1){
               document.querySelector('#profilelink').style.display = 'none';
-          }else{
+          }else if (url.split('/settings').length > 1 && url2.split('/payment-info/').length > 1) {
+              document.querySelector('#profilelink').style.display = 'none';
+          }else if (url.split('/notification').length > 1 && url2.split('/payment-info/').length > 1) {
+              document.querySelector('#profilelink').style.display = 'none';
+          }else {
               document.querySelector('#profilelink').style.display = 'block';
           }
-      });
   </script>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

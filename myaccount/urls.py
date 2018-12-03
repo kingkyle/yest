@@ -14,6 +14,6 @@ urlpatterns = [
     path('profile/notification/', views.notification, name='myaccount-notification'),
     path('profile/add-card/', CardCreateView.as_view(), name='myaccount-add-card'),
     path('qr-image/', views.qr_image, name='myaccount-qr-image'),
-    path('qr-image/<amount>/', views.qr_amount, name='myaccount-qr-amount'),
+    path('qr-image/<amount>/<detail>/', views.qr_amount, name='myaccount-qr-amount'),
     path('', views.index, name='myaccount-index')
 ]

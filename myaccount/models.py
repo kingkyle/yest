@@ -46,7 +46,7 @@ class Card(models.Model):
     billing_address = models.ForeignKey(Address, verbose_name='Billing Address', on_delete=models.PROTECT)
 
     def __str__(self):
-        return f'{user.email} Card'
+        return f'{self.ccards.get_full_name()} Card'
 
     def get_absolute_url(self):
         return reverse('myaccount-payment')
