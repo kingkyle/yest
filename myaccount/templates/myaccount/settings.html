@@ -32,12 +32,12 @@
                             </tr>
                             <tr>
                                 <td>Address</td>
-                                <td>{{user.profile.address}} </td>
+                                <td>{{user.profile.address|default:""}} </td>
                                 <td class="text-right small">Edit</td>
                             </tr>
                             <tr>
                                 <td>Country</td>
-                                <td>{{user.profile.country}}</td>
+                                <td>{{user.profile.country.name }}</td>
                                 <td class="text-right small">Edit</td>
                             </tr>
                             <tr>

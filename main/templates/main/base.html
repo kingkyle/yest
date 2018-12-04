@@ -18,25 +18,24 @@
       {% endif %}
   </head>
   <body>
+    <div class="main-loader" id="main-loader">
+        <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div class="container-fluid p-0" id="main-body" style="display: none;">
     {% include 'main/includes/navbar.html' %}
     {% block content %}{% endblock content %}
     {% include 'main/includes/footer.html' %}
-    <!--<div class="container-fluid">-->
-      <!--<h1 class="ml-4"><strong>Quote</strong></h1>-->
-    <!--<hr>-->
-    <!--<div class="border-bottom ml-4">-->
-      <!--<a href="{% url 'main-index' %}">Home</a> /-->
-        <!--{% if user.is_authenticated %}-->
-        <!--<a href="{% url 'main-request' %}">Request Payment</a> /-->
-        <!--<a href="{% url 'main-logout' %}">Logout</a>-->
-        <!--{% else %}-->
-      <!--<a href="{% url 'main-login' %}">Login</a> /-->
-      <!--<a href="{% url 'main-register' %}">Register</a>-->
-        <!--{% endif %}-->
-    <!--</div>-->
-      <!--</div>-->
+    </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            let loader = document.querySelector('#main-loader');
+            let body = document.querySelector('#main-body');
 
+            loader.style.display = 'none';
+            body.style.display = 'block';
+        })
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

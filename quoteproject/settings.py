@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'myaccount.apps.MyaccountConfig',
     'crispy_forms',
     'qrcode',
+    'django_countries',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

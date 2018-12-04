@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import gettext_lazy as _
+from django_countries.fields import CountryField
 
 def random_id():
     randID = random.randint(1000000000, 9999999999)
@@ -91,9 +92,9 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
 class Profile(models.Model):
     user = models.OneToOneField(MyUser, on_delete=models.CASCADE)
     user_no = models.IntegerField(unique=True, verbose_name='User_ID', default=random_id, editable=False)
-    country = models.CharField(max_length=200, verbose_name='Country', null=True, blank=True)
+    country = CountryField(max_length=200, verbose_name='Country')
     address = models.CharField(max_length=200, verbose_name='Address', null=True, blank=True)
-    phone = models.IntegerField(verbose_name='Phone Number', null=True, blank=True)
+    phone = models.IntegerField(verbose_name='Phone Number')
     state = models.CharField(max_length=200, verbose_name='State/Region', null=True, blank=True)
     postal_code = models.CharField(max_length=100, verbose_name='Postal Code', null=True, blank=True)
 
@@ -103,7 +104,7 @@ class Profile(models.Model):
 
 class Address(models.Model):
     useraddress = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-    country = models.CharField(max_length=200, verbose_name='Country')
+    country = CountryField(verbose_name='Country')
     address = models.CharField(max_length=200, verbose_name='Address')
     state = models.CharField(max_length=200, verbose_name='State/Region')
     postal_code = models.CharField(max_length=100, verbose_name='Postal Code')

@@ -22,7 +22,7 @@ def ReceiveSentPayment(sender, created, instance, **kwargs):
         ReceivedPayment.objects.create(receiver_id=received, sender_id=sent, amount=amount, trans_id=trans_id, date=date, status=status, type=typed)
 
 
-@receiver(post_save,sender=SentPayment)
+@receiver(post_save, sender=SentPayment)
 def UpdateBalance(sender, created, instance, **kwargs):
     if created:
         received = instance.receiver.pk
@@ -42,17 +42,6 @@ def UpdateBalance(sender, created, instance, **kwargs):
 
         Balance.objects.filter(user=ruser.pk).update(available_balance=addrbal)
         Balance.objects.filter(user=suser.pk).update(available_balance=addsbal)
-
-
-@receiver(post_save, sender=MyUser)
-def CreateProfile(sender, created, instance, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-
-@receiver(post_save, sender=MyUser)
-def SaveProfile(sender, instance, **kwargs):
-    instance.profile.save()
 
 
 @receiver(post_save, sender=MyUser)
