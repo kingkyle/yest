@@ -6,37 +6,38 @@
     <div class="container">
         <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-12">
             <div class="card mt-4 mb-4 p-4">
-                    <div class="card-body">
-                        <div class="col-md-6 offset-md-6 col-lg-4 offset-lg-4">
-                            <img class="img-fluid" src="{% static 'main/img/logo_color.svg' %}" alt="">
-                        </div>
-                        <form method="POST">
-                            {% csrf_token %}
-                            <fieldset>
-                                {{ form|crispy }}
-                                <div class="form-group">
-                                   {{ form2.country|as_crispy_field }}
-                               </div>
+                <div class="card-body">
+                    <div class="col-md-6 offset-md-6 col-lg-4 offset-lg-4">
+                        <img class="img-fluid" src="{% static 'main/img/logo_color.svg' %}" alt="">
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <fieldset>
+                            {{ form|crispy }}
+                            <div class="form-group">
+                                {{ form2.country|as_crispy_field }}
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="">Phone*</label>
-                                    <div class="input-group mb-3">
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Country Code</span>
-                                  </div>
-                                  <input type="number" name="phone" id="phone" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <div class="form-group">
+                                {{ form2.phone.errors}}
+                                {{ form2.phone.label_tag}}
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Country Code</span>
+                                    </div>
+                                    {{ form2.phone }}
                                 </div>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary form-control" id="signup" type="submit">Sign Up</button>
-                                </div>
-                            </fieldset>
-                        </form>
-                        <div>
-                            <a class="btn btn-info col-md-12" href="{% url 'main-login' %}">Have Account? Log In!</a>
-                        </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary form-control" id="signup" type="submit">Sign Up</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <div>
+                        <a class="btn btn-info col-md-12" href="{% url 'main-login' %}">Have Account? Log In!</a>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 </div>
