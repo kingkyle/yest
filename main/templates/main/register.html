@@ -4,19 +4,31 @@
 {% block content %}
 <div class="container-fluid font-normal bg-light">
     <div class="container">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-12">
             <div class="card mt-4 mb-4 p-4">
                     <div class="card-body">
-                        <div class="col-md-4 offset-md-4">
+                        <div class="col-md-6 offset-md-6 col-lg-4 offset-lg-4">
                             <img class="img-fluid" src="{% static 'main/img/logo_color.svg' %}" alt="">
                         </div>
                         <form method="POST">
                             {% csrf_token %}
                             <fieldset>
                                 {{ form|crispy }}
-                                {{ form2|crispy }}
                                 <div class="form-group">
-                                    <button class="btn btn-primary form-control" type="submit">Sign Up</button>
+                                   {{ form2.country|as_crispy_field }}
+                               </div>
+
+                                <div class="form-group">
+                                    <label for="">Phone*</label>
+                                    <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Country Code</span>
+                                  </div>
+                                  <input type="number" name="phone" id="phone" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary form-control" id="signup" type="submit">Sign Up</button>
                                 </div>
                             </fieldset>
                         </form>
@@ -28,4 +40,31 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        let country = document.querySelector('#id_country');
+        let phone = document.querySelector('#inputGroup-sizing-default');
+        let signup = document.querySelector('#signup');
+
+        country.onchange = () => {
+            const request = new XMLHttpRequest();
+            request.open('GET', 'https://restcountries.eu/rest/v2/alpha/'+ country.value);
+            request.responseType = "json";
+            request.onload = () => {
+                const response = request.response;
+                let val = response['callingCodes'];
+                if(request.status !== 200) {
+                    phone.innerHTML = '';
+                    signup.disabled = true;
+                } else {
+                    phone.innerHTML = '+' + val;
+                    signup.disabled = false;
+                }
+            };
+            request.send();
+        };
+
+    })
+</script>
 {% endblock %}

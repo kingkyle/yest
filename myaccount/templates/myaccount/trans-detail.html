@@ -1,0 +1,66 @@
+{% extends 'myaccount/base.html' %}
+{% block content %}
+<div class="container-fluid bg-gray font-normal">
+    <div class="container mt-4 mb-4 rounded">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="bg-light p-2">Transaction Details</h3>
+                <div class="row">
+                    {% for trans in transaction %}
+                    <div class="col-md-6 col-sm-12">
+                        <p>Transaction ID: {{ trans.trans_id }}</p>
+                        <p>{{ trans.type }} {% if trans.type == 'Payment From' %} {{ trans.sender.get_full_name }} {% else %} {{ trans.receiver.get_full_name }} {% endif %}</p>
+                        <p>Date: {{ trans.date|date:"F j, Y. G:s" }}</p>
+                        <p>Payment Status: <span class="small border p-1">{{ trans.status }}</span></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-right">
+                        <p>Amount: <br>
+                            {% if trans.type == 'Payment From' %} {{ trans.amount|add:trans.fee|floatformat:2 }} {% else %} {{ trans.amount }} {% endif %} USD <br>
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="p-2 bg-light">Payment Info</h4>
+                        <p class="text-center" >
+                            {{ trans.info }}
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="p-2 bg-light">Payment Details</h4>
+                    <table class="table table-responsive table-borderless">
+                        <tr>
+                            <td>Gross Amount:</td>
+                            <td class="text-right">{% if trans.type == 'Payment From' %} {{ trans.amount|add:trans.fee|floatformat:2 }} {% else %} {{ trans.amount }} {% endif %} USD</td>
+                        </tr>
+                        <tr>
+                            <td>Fees:</td>
+                            <td class="text-right">{% if trans.type == 'Payment From' %} -{{ trans.fee }} {% else %} -0.00 {% endif %} USD</td>
+                        </tr>
+                        <tr>
+                            <td>Net Amount:</td>
+                            <td class="text-right">{{ trans.amount }} USD</td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+                <div class="ml-3 border-top">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br>
+                            <p>{% if trans.type == 'Payment From' %} From: {{ trans.sender.get_full_name }} {% else %} To: {{ trans.receiver.get_full_name }} {% endif %}</p>
+                            <p>{% if trans.type == 'Payment From' %} To: {{ trans.receiver.get_full_name }} {% else %} From: {{ trans.sender.get_full_name }} {% endif %} </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

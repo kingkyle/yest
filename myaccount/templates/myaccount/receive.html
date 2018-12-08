@@ -11,7 +11,11 @@
         <div class="row">
             <div class="col-md-6 offset-md-3 col-sm-12">
                 <div class="text-center mt-4">
-                    <img src="{% url 'myaccount-qr-image' %}" class="img-responsive img-thumbnail col-md-11" alt="Quote barcode" id="qr-code">
+                    <div class="bg-dark" style="border-radius: 4%;">
+                      <img src="{% url 'myaccount-qr-image' %}" class="img-responsive img-thumbnail col-md-11 mt-4 rounded" alt="Quote barcode" id="qr-code">
+                        <br>
+                      <p class="text-left ml-4 mt-2 p-3"><i class="fas fa-mobile-alt fa-2x" style="color:white"></i><span class="text-white font-weight-bold p-2"> Scan Me</span></p>
+                    </div>
                 </div>
                 <br>
                 <div class="form-group">

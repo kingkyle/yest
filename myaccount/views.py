@@ -4,9 +4,9 @@ from django.shortcuts import render, HttpResponse, redirect
 from qrcode.image.pure import PymagingImage
 from django.utils.six import BytesIO
 from .forms import CheckEmailForm, EmailNotificationForm, PaymentInfoForm, PaymentAmountForm
-from .models import Balance, Card
+from .models import Balance, Card, Notifier, NotifierCount
 from users.models import MyUser, Address
-from transactions.models import SentPayment, ReceivedPayment, PaymentInfo
+from transactions.models import SentPayment, ReceivedPayment, PaymentFee
 from django.views.generic.edit import CreateView
 from django import forms
 from django.contrib import messages
@@ -14,19 +14,53 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
+def get_notifier(request):
+    user = request.user
+    notifiers = Notifier.objects.filter(user=user).order_by('-date')[:5]
+    return notifiers
+
+
+def get_notifier_count(request):
+    user = request.user
+    counter = NotifierCount.objects.get(user=user)
+    return counter
+
+
 @login_required
 def home(request):
     user = request.user
-    sent = SentPayment.objects.filter(sender=user.pk)
-    received = ReceivedPayment.objects.filter(sender=user.pk)
+    sent = SentPayment.objects.filter(sender=user)
+    received = ReceivedPayment.objects.filter(receiver=user)
+    notifiers = get_notifier(request)
+    counter = get_notifier_count(request)
     transactions = sent.union(received).order_by('-date')[:10]
     context = {
         'user': user,
         'sent': sent,
+        'notifiers': notifiers,
         'received': received,
+        'counter': counter,
         'transactions': transactions
     }
     return render(request, 'myaccount/home.html', context)
+
+
+@login_required
+def resetCount(request):
+    user = request.user
+    NotifierCount.objects.filter(user=user).update(counter=0)
+
+
+@login_required
+def trans_details(request, trans_id):
+    user = request.user
+    sent = SentPayment.objects.filter(sender=user, trans_id=trans_id)
+    received = ReceivedPayment.objects.filter(receiver=user, trans_id=trans_id)
+    transaction = sent.union(received).filter(trans_id=trans_id)
+    context = {
+        'transaction': transaction
+    }
+    return render(request, 'myaccount/trans-detail.html', context)
 
 
 class CardCreateView(LoginRequiredMixin, CreateView):
@@ -56,7 +90,7 @@ def send(request):
     if request.method == 'POST':
         form = CheckEmailForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['check_email']
+            email = form.cleaned_data['check_email'].lower()
             if email == request.user.email:
                 messages.error(request, 'You cannot Send Payment To Yourself')
                 return redirect('myaccount-send')
@@ -84,23 +118,21 @@ def send_info(request):
         form2 = PaymentInfoForm(request.POST)
         if form.is_valid() and form2.is_valid():
             ruser = request.session['check_user']
-            suser = request.user.email
+            suser = request.user
             amount = form.cleaned_data['amount']
-            detail = form2.cleaned_data['detail']
+            detail = form2.cleaned_data['info']
 
+            getfee = PaymentFee.objects.first()
+            fee = getfee.fee
             bal = request.user.balance.get_balance()
             if amount > bal:
                 messages.error(request, 'You cannot complete this Payment, Check Balance')
                 return redirect('myaccount-send')
 
-            rgetuser = MyUser.objects.filter(email=ruser).first()
-            sgetuser = MyUser.objects.filter(email=suser).first()
+            get_receiver = MyUser.objects.get(email=ruser)
 
-            newPaymentSent = SentPayment(amount=amount, sender_id=sgetuser.pk, receiver_id=rgetuser.pk)
+            newPaymentSent = SentPayment(amount=amount, sender=suser, receiver=get_receiver, info=detail, fee=fee)
             newPaymentSent.save()
-
-            newPaymentInfo =  PaymentInfo(detail=detail, payment_info_id=newPaymentSent.id)
-            newPaymentInfo.save()
 
             messages.success(request, 'Payment Sent Successfully')
             return redirect('myaccount-send')
@@ -152,6 +184,7 @@ def notification(request):
     }
     return render(request, 'myaccount/notifications.html', context)
 
+
 @login_required
 def qr_image(request):
     email = request.user.email
@@ -163,6 +196,7 @@ def qr_image(request):
     response = HttpResponse(image_stream, content_type='image/jpg')
     response['Content-Disposition'] = 'inline; filename="qr.jpg"'
     return response
+
 
 @login_required
 def qr_amount(request, amount, detail):

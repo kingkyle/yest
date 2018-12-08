@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import MyUser, Address
 from django.urls import reverse
+from django.utils import timezone
 
 
 class Notification(models.Model):
@@ -50,4 +51,24 @@ class Card(models.Model):
 
     def get_absolute_url(self):
         return reverse('myaccount-payment')
+
+
+class Notifier(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    message = models.CharField(max_length=300)
+    date = models.DateTimeField(default=timezone.now)
+    trans_id = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f'{self.user} Notifier'
+
+
+class NotifierCount(models.Model):
+    user = models.OneToOneField(MyUser, on_delete=models.CASCADE)
+    counter = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.user} Count'
+
+
 

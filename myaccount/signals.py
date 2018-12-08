@@ -1,25 +1,39 @@
 from django.db.models.signals import post_save
 from transactions.models import SentPayment, ReceivedPayment
 from users.models import MyUser, Profile
-from .models import Balance
+from .models import Balance, Notifier, NotifierCount
 from django.dispatch import receiver
 
 
 @receiver(post_save, sender=SentPayment)
 def ReceiveSentPayment(sender, created, instance, **kwargs):
     if created:
-        print(instance.receiver.pk)
-        print(instance.sender.get_full_name())
 
-        received = instance.receiver.pk
-        sent = instance.sender.pk
+        received = instance.receiver
+        sent = instance.sender
         amount = instance.amount
         trans_id = instance.trans_id
         date = instance.date
         status = instance.status
+        info = instance.info
         typed = 'Payment From'
+        fee = instance.fee
+        f_amount = amount-fee
 
-        ReceivedPayment.objects.create(receiver_id=received, sender_id=sent, amount=amount, trans_id=trans_id, date=date, status=status, type=typed)
+        ReceivedPayment.objects.create(receiver=received, sender=sent, amount=f_amount, trans_id=trans_id, date=date,
+                                       status=status, type=typed, info=info, fee=fee)
+
+
+@receiver(post_save, sender=SentPayment)
+def SentPaymentNotifier(sender, created, instance, **kwargs):
+    if created:
+        received = instance.receiver
+        amount = instance.amount
+        message = f'Money Received - {amount} USD'
+        trans_id = instance.trans_id
+
+        Notifier.objects.create(user=received, message=message, trans_id=trans_id)
+        NotifierCount.objects.filter(user=received).update(counter=+1)
 
 
 @receiver(post_save, sender=SentPayment)
@@ -48,4 +62,5 @@ def UpdateBalance(sender, created, instance, **kwargs):
 def CreateBalance(sender, created, instance, **kwargs):
     if created:
         Balance.objects.create(user=instance)
+        NotifierCount.objects.create(user=instance)
 

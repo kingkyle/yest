@@ -189,3 +189,62 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+  background-color: yellow;
+}
+.dropdown-menu{
+  top: 60px;
+  right: 0px;
+  left: unset;
+  width: 25%;
+  box-shadow: 0px 5px 7px -1px #c1c1c1;
+    padding: 0px;
+    margin-right: 20px;
+}
+.dropdown-menu:before{
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  border:10px solid #17a2b8;
+  border-color: transparent transparent #17a2b8 transparent;
+}
+.head{
+  padding:5px 15px;
+  border-radius: 3px 3px 0px 0px;
+}
+.footer{
+  padding:5px 15px;
+  border-radius: 0px 0px 3px 3px;
+}
+.notification-box{
+  padding: 10px 0px;
+}
+.dropdown-menu li:nth-child(2n+0) {
+  background-color: #fafafa;
+}
+.bg-gray{
+  background-color: #eee;
+}
+@media (max-width: 640px) {
+    .dropdown-menu{
+      top: 50px;
+      left: -16px;
+      width: 290px;
+    }
+    .nav{
+      display: block;
+    }
+    .nav .nav-item,.nav .nav-item a{
+      padding-left: 0px;
+    }
+    .message{
+      font-size: 13px;
+    }
+}
+
+.tr-row {
+    cursor: pointer;
+}

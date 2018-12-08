@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Notification, Balance, Card
+from .models import Notification, Balance, Card, Notifier, NotifierCount
 
 
 class BalanceAdmin(admin.ModelAdmin):
@@ -13,3 +13,5 @@ class BalanceAdmin(admin.ModelAdmin):
 admin.site.register(Balance, BalanceAdmin)
 admin.site.register(Notification)
 admin.site.register(Card)
+admin.site.register(Notifier)
+admin.site.register(NotifierCount)

@@ -1,6 +1,6 @@
 from django import forms
 from users.models import MyUser
-from transactions.models import PaymentInfo, SentPayment
+from transactions.models import SentPayment
 from .models import Notification
 
 
@@ -20,9 +20,9 @@ class EmailNotificationForm(forms.ModelForm):
 
 class PaymentInfoForm(forms.ModelForm):
     class Meta:
-        model = PaymentInfo
-        fields = ['detail']
-        widgets = {'detail': forms.Textarea(attrs={'placeholder': 'Enter Details About the Payment (Optional)'})}
+        model = SentPayment
+        fields = ['info']
+        widgets = {'info': forms.Textarea(attrs={'placeholder': 'Enter Details About the Payment (Optional)'})}
 
 
 class PaymentAmountForm(forms.ModelForm):

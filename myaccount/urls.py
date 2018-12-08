@@ -5,6 +5,8 @@ from .views import CardCreateView
 urlpatterns = [
     path('home/', views.home, name='myaccount-home'),
     path('receive/', views.receive, name='myaccount-receive'),
+    path('resetcounter/', views.resetCount, name='myaccount-resetcounter'),
+    path('paymentdetails/<trans_id>', views.trans_details, name='myaccount-trans-detail'),
     path('send/', views.send, name='myaccount-send'),
     path('send/send-info/', views.send_info, name='myaccount-send-info'),
     path('profile/settings/', views.settings, name='myaccount-settings'),
