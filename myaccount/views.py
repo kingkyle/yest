@@ -95,7 +95,7 @@ def send(request):
                 messages.error(request, 'You cannot Send Payment To Yourself')
                 return redirect('myaccount-send')
             else:
-                check_user = MyUser.objects.filter(email=email).first()
+                check_user = MyUser.objects.filter(email__iexact=email).first()
 
                 if check_user:
                     request.session['check_user'] = check_user.email

@@ -45,3 +45,12 @@ class UserChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
+
+class NewUserCreationForm(UserCreationForm):
+    def clean(self):
+        cleaned_data = super(NewUserCreationForm, self).clean()
+        email = cleaned_data.get("email")
+        if email and MyUser.objects.filter(email__iexact=email).exists():
+            self.add_error('email', 'A User with such email Already Exist.')
+            return cleaned_data

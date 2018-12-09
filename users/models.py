@@ -5,9 +5,11 @@ from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 
+
 def random_id():
     randID = random.randint(1000000000, 9999999999)
     return randID
+
 
 class MyUserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, password=None):
@@ -22,7 +24,7 @@ class MyUserManager(BaseUserManager):
             raise ValueError("Please Provide a Legal Last Name")
 
         user = self.model(
-            email=self.normalize_email(email),
+            email=self.normalize_email(email).lower(),
             first_name=first_name,
             last_name=last_name
         )
@@ -48,6 +50,10 @@ class MyUserManager(BaseUserManager):
         user.is_active = True
         user.save(using=self._db)
         return user
+
+    def get_by_natural_key(self, email):
+        case_insensitive_email_field = '{}__iexact'.format(self.model.USERNAME_FIELD)
+        return self.get(**{case_insensitive_email_field: email})
 
 
 class MyUser(AbstractBaseUser, PermissionsMixin):

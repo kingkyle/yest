@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from users.forms import UserCreationForm
+from users.forms import NewUserCreationForm
 from users.models import MyUser, Profile
 from .forms import UserCreationProfileForm
 
@@ -12,7 +12,7 @@ def register(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
             return redirect('myaccount-home')
-        form = UserCreationForm(request.POST)
+        form = NewUserCreationForm(request.POST)
         form2 = UserCreationProfileForm(request.POST)
         if form.is_valid() and form2.is_valid():
             form.save()
@@ -25,7 +25,7 @@ def register(request):
     else:
         if request.user.is_authenticated:
             return redirect('myaccount-home')
-        form = UserCreationForm()
+        form = NewUserCreationForm()
         form2 = UserCreationProfileForm()
     context = {
         'title': 'Join Quote Today!',
