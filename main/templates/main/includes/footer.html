@@ -26,7 +26,10 @@
         </div>
         <div class="row text-white border-top mt-4">
             <div class="container font-normal mb-2 mt-2">
-                <h6>Copyright 2018 Quote</h6>
+                <h6>
+                    {% now "Y" as current_year %}
+                    Copyright {{ current_year }} Quote
+                </h6>
             </div>
         </div>
     </div>

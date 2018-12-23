@@ -1,0 +1,42 @@
+<table class="table table-striped table-border table-responsive-sm table-responsive-md" id="trans-table">
+                            <thead class="bg-purple text-white">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Gross</th>
+                                    <th>Fee</th>
+                                    <th>Net</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                {% if transactions %}
+                                {% for trans in transactions %}
+                                <tr data-href="{% url 'myaccount-trans-detail' trans_id=trans.trans_id %}" class="tr-row">
+                                    <td>{{ trans.date|date:"d-m-Y" }}</td>
+                                    <td>{{ trans.trans_type }}</td>
+                                    {% if trans.trans_type == 'Payment From' %}
+                                    <td>{{ trans.sender.get_full_name }}</td>
+                                    {% else %}
+                                    <td>{{ trans.receiver.get_full_name }}</td>
+                                    {% endif %}
+                                    <td>{{ trans.status }}</td>
+                                    <td>{{ trans.amount|add:trans.fee }} USD</td>
+                                    <td>{{ trans.fee }} USD</td>
+                                    <td>{{ trans.amount }} USD</td>
+                                    {% if trans.trans_type == 'Payment From' %}
+                                    <td>{{ trans.receiver_balance }} USD</td>
+                                    {% else %}
+                                    <td>{{ trans.sender_balance }} USD</td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan=8 class="text-center">No Data Available</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>

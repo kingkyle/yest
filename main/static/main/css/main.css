@@ -194,7 +194,7 @@ footer {
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link{
   background-color: yellow;
 }
-.dropdown-menu{
+#dropdown-menu1{
   top: 60px;
   right: 0px;
   left: unset;
@@ -203,7 +203,7 @@ footer {
     padding: 0px;
     margin-right: 20px;
 }
-.dropdown-menu:before{
+#dropdown-menu1:before{
   content: "";
   position: absolute;
   top: -20px;
@@ -222,14 +222,14 @@ footer {
 .notification-box{
   padding: 10px 0px;
 }
-.dropdown-menu li:nth-child(2n+0) {
+#dropdown-menu1 li:nth-child(2n+0) {
   background-color: #fafafa;
 }
 .bg-gray{
   background-color: #eee;
 }
 @media (max-width: 640px) {
-    .dropdown-menu{
+    #dropdown-menu1{
       top: 50px;
       left: -16px;
       width: 290px;
@@ -248,3 +248,67 @@ footer {
 .tr-row {
     cursor: pointer;
 }
+
+/*Select Styling*/
+  
+    /*.custom-select {
+        position: relative;
+        font-family: Arial;
+    }
+
+    .custom-select .select1 {
+        display: none;
+       
+    }
+
+    .select-selected {
+        background-color: white;
+    }
+
+    .select-selected:after {
+        position: absolute;
+        content: "";
+        top: 14px;
+        right: 10px;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-color: #fff transparent transparent transparent;
+    }
+
+    
+    .select-selected.select-arrow-active:after {
+        border-color: transparent transparent #fff transparent;
+        top: 7px;
+    }
+
+   
+    .select-items div,
+    .select-selected {
+        color: black;
+        padding: 2px 4px;
+        border: 1px solid transparent;
+        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+        cursor: pointer;
+        user-select: none;
+    }
+
+   
+    .select-items {
+        position: absolute;
+        background-color: white;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 99;
+    }
+
+   
+    .select-hide {
+        display: none;
+    }
+
+    .select-items div:hover,
+    .same-as-selected {
+        background-color: rgba(0, 0, 0, 0.1);
+    }*/

@@ -39,12 +39,14 @@ INSTALLED_APPS = [
     'crispy_forms',
     'qrcode',
     'django_countries',
+    'django_filters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

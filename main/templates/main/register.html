@@ -47,6 +47,7 @@
         let country = document.querySelector('#id_country');
         let phone = document.querySelector('#inputGroup-sizing-default');
         let signup = document.querySelector('#signup');
+        let email = document.querySelector('#id_email');
 
         country.onchange = () => {
             const request = new XMLHttpRequest();
@@ -64,6 +65,10 @@
                 }
             };
             request.send();
+        };
+
+        email.onchange = () => {
+            email.value = email.value.toLowerCase()
         };
 
     })

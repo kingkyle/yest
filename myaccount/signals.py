@@ -20,8 +20,17 @@ def ReceiveSentPayment(sender, created, instance, **kwargs):
         fee = instance.fee
         f_amount = amount-fee
 
-        ReceivedPayment.objects.create(receiver=received, sender=sent, amount=f_amount, trans_id=trans_id, date=date,
-                                       status=status, type=typed, info=info, fee=fee)
+        ReceivedPayment.objects.create(receiver=received, sender=sent,
+                                       amount=f_amount, trans_id=trans_id,
+                                       date=date, status=status, type=typed,
+                                       info=info, fee=fee)
+
+
+@receiver(post_save, sender=SentPayment)
+def ReceiveSentPaymentBalanceUpdate(sender, instance, **kwargs):
+    ReceivedPayment.objects.filter(id=instance.id).update(
+        sender_balance=instance.sender_balance,
+        receiver_balance=instance.receiver_balance)
 
 
 @receiver(post_save, sender=SentPayment)
@@ -57,10 +66,33 @@ def UpdateBalance(sender, created, instance, **kwargs):
         Balance.objects.filter(user=ruser.pk).update(available_balance=addrbal)
         Balance.objects.filter(user=suser.pk).update(available_balance=addsbal)
 
+        """ Update the Balance in the SentPayMent transaction Models
+        After it has been Sent"""
+
+        SentPayment.objects.filter(id=instance.id).update(
+            sender_balance=suser.balance.get_balance(),
+            receiver_balance=ruser.balance.get_balance())
+
+
+@receiver(post_save, sender=ReceivedPayment)
+def update_received_alance(sender, instance, created, **kwargs):
+    if created:
+        received = instance.receiver.pk
+        sent = instance.sender.pk
+
+        ruser = MyUser.objects.get(id=received)
+        suser = MyUser.objects.get(id=sent)
+
+        sender_balance = suser.balance.get_balance() - instance.amount
+        receiver_balance = ruser.balance.get_balance() + instance.amount
+
+        ReceivedPayment.objects.filter(id=instance.id).update(
+            sender_balance=sender_balance,
+            receiver_balance=receiver_balance)
+
 
 @receiver(post_save, sender=MyUser)
 def CreateBalance(sender, created, instance, **kwargs):
     if created:
         Balance.objects.create(user=instance)
         NotifierCount.objects.create(user=instance)
-
